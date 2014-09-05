@@ -16,7 +16,6 @@ gem 'rmagick'
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
-
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', platform: :ruby
 
@@ -48,4 +47,5 @@ gem 'rails_12factor'
 # gem 'ruby-debug19', require: 'ruby-debug'
 
 gem 'omniauth-tradegecko'
+gem 'gecko-ruby'
 gem 'access_token_wrapper', github: 'tradegecko/access_token_wrapper'

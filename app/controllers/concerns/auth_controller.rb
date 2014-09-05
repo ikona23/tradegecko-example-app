@@ -16,21 +16,36 @@ module AuthController
 
 private
   def oauth_client
-    @oauth_client ||= OAuth2::Client.new(ENV["OAUTH_ID"], ENV["OAUTH_SECRET"], site: "https://api.tradegecko.com")
+    @oauth_client ||= OAuth2::Client.new(ENV["OAUTH_ID"], ENV["OAUTH_SECRET"], site: site_url)
   end
 
   def access_token
     if session[:access_token]
       @access_token ||= begin
-        token = OAuth2::AccessToken.new(oauth_client, session[:access_token],
-                refresh_token: session[:refresh_token],
-                expires_at: session[:expires_at]
-        )
+        token = OAuth2::AccessToken.new(oauth_client, session[:access_token], {
+          refresh_token: session[:refresh_token],
+          expires_at: session[:expires_at]
+        })
         AccessTokenWrapper::Base.new(token) do |new_token, exception|
           set_session_from_access_token(new_token)
         end
       end
     end
+  end
+
+  def gecko
+    require 'gecko-ruby'
+    @gecko ||= begin
+      client = Gecko::Client.new(ENV["OAUTH_ID"], ENV["OAUTH_SECRET"], {
+        site_url: site_url
+      })
+      client.access_token = access_token
+      client
+    end
+  end
+
+  def site_url
+    ENV["TRADEGECKO_API_URL"] || "https://api.tradegecko.com"
   end
 
   def clear_session

@@ -1,10 +1,10 @@
 class ProductsController < ApplicationController
   def index
-    @products = access_token.get("/products").parsed["products"] if access_token
+    @products = gecko.Product.where(limit: 50)
   end
 
   def show
-    @product = access_token.get("/products/#{params[:id]}").parsed["product"]
+    @product = gecko.Product.find(params[:id])
   end
 
   def new
