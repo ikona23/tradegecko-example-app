@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.0.0"
+ruby "2.2.4"
 
 gem 'rails'
 
@@ -10,6 +10,7 @@ gem 'pg'
 gem 'barby'
 gem 'chunky_png'
 gem 'rmagick'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -27,6 +28,7 @@ gem 'jquery-rails'
 group :development do
   gem 'pry'
   gem 'foreman'
+  gem 'spring'
 end
 
 # To use ActiveModel has_secure_password
@@ -47,4 +49,3 @@ gem 'rails_12factor'
 
 gem 'omniauth-tradegecko'
 gem 'access_token_wrapper', github: 'tradegecko/access_token_wrapper'
-
